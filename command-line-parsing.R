@@ -1,6 +1,4 @@
 
-args = "pop=3 ibd=4 test"
-
 library(stringr)
 
 parseCommandArgs = function(args) {
