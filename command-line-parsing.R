@@ -1,4 +1,6 @@
 
+args = "pop=3 ibd=4 test"
+
 library(stringr)
 
 parseCommandArgs = function(args) {
@@ -46,13 +48,31 @@ mergeArgs = function(l1, defaultArgs) {
 
 
 
+optionsToText = function(opts) {
+ 
+  x = c()
+  
+  for(i in names(opts)) {
+    
+   x = c(x, sprintf("%s=%s\n", i, opts[[i]]))
+   
+  }
+  paste(x,sep="",collapse="")
+}
+
+
 # Example 
-if(0) {
+if(1) {
 z=parseCommandArgs(c("t=5,4x,5 nibd=10x ngenes", "koko=2"))
 z
 
 z=mergeArgs(z,list(ncpus=3))
 
 print(z)
+optionsToText(z)
 
 }
+
+
+plot(1,t="n")
+text(1,1,optionsToText(z))
