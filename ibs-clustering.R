@@ -15,6 +15,11 @@ colorPal = function(pal = "RdYlBu", n=300) {
 }
 
 
+
+
+
+
+
 makeClusterMatrix = function(a, values, diagonal = 0) {
     
     
@@ -37,27 +42,36 @@ makeClusterMatrix = function(a, values, diagonal = 0) {
 }
 
 
-
 library(gplots)
 library(RColorBrewer)
 library(cluster)
 
 
-niceClusterPlot = function(m , q1 = NA ,  pal = NA,  reverse = 0, plotTitle = "") {
+niceClusterPlot = function(m , q1 = NA ,  pal = NA,  reverse = 0,  sep = NA, plotTitle = "") {
     
     if(is.na(q1)) q1 = quantile(m,p=c(0.05,0.995))
     
-    br1 = seq(q1[1],q1[2],l=301)
+    br1 = seq(q1[1],q1[2],l=601)
     
-    c1  = rev ( heat.colors(300) ) 
+    #c1  = rev ( heat.colors(300) ) 
+    
+    
+    
     
     if(is.na(pal)) pal = "RdBu"
-    pal = brewer.pal(300, pal)
-    #pal = pal[ 1:( length(pal)-2) ]
-    #pal = pal[ (1+2):length(pal) ]
-    c1 = colorRampPalette(pal)
     
-    c1 = c1(300)
+    
+    if(length(pal) == 1) {
+            pal = brewer.pal(1300, pal)
+           # pal = pal[ 1:( length(pal)-1) ]
+           # pal = pal[ (1+1):length(pal) ]
+            c1 = colorRampPalette(pal)
+            
+            c1 = c1(600)
+    } else {
+            c1 = pal
+    }
+    
     if(reverse) c1 = rev(c1)
     
     #c1 = (heat.colors(300))
@@ -66,11 +80,13 @@ niceClusterPlot = function(m , q1 = NA ,  pal = NA,  reverse = 0, plotTitle = ""
    # t=dist(m)
     #str(t)
     
+    
+    
     heatmap.2(m,trace="n",
               main=plotTitle,
               col = c1,breaks=br1,
-              colsep=0:200,
-              rowsep=0:200,
+              colsep=sep,
+              rowsep=sep,
               sepwidth=c(0.02,0.02),
               sepcolor=rgb(0.8,0.8,0.8),
               #hclustfun=agnes,
@@ -82,6 +98,13 @@ niceClusterPlot = function(m , q1 = NA ,  pal = NA,  reverse = 0, plotTitle = ""
     
     
 }
+
+
+
+
+
+
+
 
 
 
