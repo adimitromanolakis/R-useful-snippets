@@ -15,6 +15,27 @@ colorPal = function(pal = "RdYlBu", n=300) {
 }
 
 
+makeClusterMatrix = function(a, values, diagonal = 0) {
+    
+    
+    a$IID1 = as.character(a$IID1)
+    a$IID2 = as.character(a$IID2)
+
+    n = unique(c(a$IID1,a$IID2))
+    m = matrix(1,nrow=length(n),ncol=length(n))
+
+    colnames(m) = n
+    rownames(m) = n
+    
+    m[ cbind(a$IID1,a$IID2) ] = values
+    m[ cbind(a$IID2,a$IID1) ] = values
+    
+    m[ cbind(n,n) ] =   diagonal
+    
+    
+    m
+}
+
 
 
 IBSstatistics = function() {
