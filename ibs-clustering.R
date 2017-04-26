@@ -38,6 +38,55 @@ makeClusterMatrix = function(a, values, diagonal = 0) {
 
 
 
+library(gplots)
+library(RColorBrewer)
+library(cluster)
+
+
+niceClusterPlot = function(m , q1 = NA ,  pal = NA,  reverse = 0, plotTitle = "") {
+    
+    if(is.na(q1)) q1 = quantile(m,p=c(0.05,0.995))
+    
+    br1 = seq(q1[1],q1[2],l=301)
+    
+    c1  = rev ( heat.colors(300) ) 
+    
+    if(is.na(pal)) pal = "RdBu"
+    pal = brewer.pal(300, pal)
+    #pal = pal[ 1:( length(pal)-2) ]
+    #pal = pal[ (1+2):length(pal) ]
+    c1 = colorRampPalette(pal)
+    
+    c1 = c1(300)
+    if(reverse) c1 = rev(c1)
+    
+    #c1 = (heat.colors(300))
+    
+    
+   # t=dist(m)
+    #str(t)
+    
+    heatmap.2(m,trace="n",
+              main=plotTitle,
+              col = c1,breaks=br1,
+              colsep=0:200,
+              rowsep=0:200,
+              sepwidth=c(0.02,0.02),
+              sepcolor=rgb(0.8,0.8,0.8),
+              #hclustfun=agnes,
+              distfun=function(x) (dist(x,method="manh") )
+                                            
+    )
+              
+    
+    
+    
+}
+
+
+
+
+
 IBSstatistics = function() {
     
     maf_all = snpgdsSNPRateFreq(genofile)
