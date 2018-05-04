@@ -132,5 +132,34 @@ for(ch in 1:22) {
 
 
 
+chrom=6
+
+
+
+a = geneticMap[[chrom]]
+range(a$V3)
+range(a$V4)/1e6
+
+bp =seq(0,300,by=0.25)
+
+cm = approx(a$V4,a$V3, bp*1e6)
+cm2 = approx(a$V4,a$V3, (1+bp)*1e6)
+
+
+s = which(!is.na(cm$y))
+bp = bp[s]
+cm = cm$y[s]
+cm2 = cm2$y[s]
+
+plot(bp,cm2-cm,t="l")
+#plot(bp,1/(cm2-cm+1),t="l")
+
+
+p_bp = bp
+p_dcm = cm2-cm
+
+
+
+
 
 
