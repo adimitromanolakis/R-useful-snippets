@@ -43,3 +43,94 @@ ibd[1,]
 ibd$pop1 =   population_of(ibd$ID1)
 ibd$pop2 =   population_of(ibd$ID2)
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+geneticMap = list()
+
+for(i in 1:22) {
+  fn = sprintf("/tmp/plink.chr%s.GRCh37.map",i)
+  a = read.table(fn,as=T)
+  a = a[,-2]
+  print(i)
+  geneticMap[[i]] = a
+  
+}
+
+save(geneticMap,file="/tmp/geneticMap-grch37.rdata")
+
+
+str(geneticMap)
+
+
+load("~/MEGAsync/work/prest-ibs/truffle/data/geneticMap-grch37.rdata")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+seg$cm1 = NA
+seg$cm2 = NA
+seg$cmlen = NA
+
+
+for(ch in 1:22) {
+
+	print(ch)
+	s = which(seg$CHROM == ch)
+
+	m = geneticMap[[ch]]
+	#m[1:100,]
+
+	cm1 = approx(m$V4,m$V3,seg$POS[s]*1e6)$y
+	cm2 = approx(m$V4,m$V3,(seg$POS[s]+seg$LEN[s])*1e6)$y
+	cm2-cm1
+	seg$cmlen[s] = cm2 - cm1
+	seg$cm1[s] = cm1
+	seg$cm2[s] = cm2
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
