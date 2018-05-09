@@ -100,3 +100,18 @@ proportionSharing = function(seg, chrom = 6, cc = c("CEU"), type = "IBD1", minLe
   d
   
 }
+
+
+
+seg2 = dbReadTable(con,"seg")
+
+
+proportionSharing(seg2,3,cc=c("JPT"),type="IBD1",minLength = 5)
+
+
+
+
+
+
+
+
