@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<style>
+
+.but { 
+
+border: 1px solid black;
+border-radius:4px;
+font-size:19px;
+width:46px;
+}
+
+.osd {
+  border: 1px solid black;
+
+  border-radius: 2px;
+  margin:3px;
+  padding:10px;
+  display:inline-block;
+  font-size:25px;
+  background: black;
+  color: #ccc;
+}
+
+</style>
+<script>
+
+
+var lastCliked="not"
+
+function changeBodyColor(a,id) {
+  console.log("col=" +a + " id=" + id)
+  document.getElementById("body").style.backgroundColor = a;
+
+
+  if(document.getElementById(lastCliked) != undefined) {
+    document.getElementById(lastCliked).style.backgroundColor = 'rgb(221, 221, 221)';
+    document.getElementById(lastCliked).style.color = 'black';
+  }
+   // document.getElementById(lastCliked).style.textColor = "black";
+
+  document.getElementById(id).style.color = "white";
+  document.getElementById(id).style.backgroundColor = "black";
+
+  lastCliked = id
+}
+
+
+function changeBodyColor2(a,id) {
+
+  x = Math.round((255.0*a)/100)
+
+  bodyColor = x
+  col = 'rgb('+x+','+x+','+x+')'
+  changeBodyColor(col,id)
+
+  document.getElementById("osd").innerHTML = col
+
+}
+</script>
+<body id="body">
+
+
+<button class='but' id="demo1" onclick="changeBodyColor('red',this.id)">R</button>
+<button class='but' id="demo2" onclick="changeBodyColor('rgb(0,255,0)',this.id)">G</button>
+<button class='but' id="demo3" onclick="changeBodyColor('rgb(0,0,255)',this.id)">B</button>
+<button class='but' id="demoY" onclick="changeBodyColor('rgb(255,255,0)',this.id)">Y</button>
+
+<button class='but' id="demo00" onclick="changeBodyColor2(0,this.id)">0</button>
+<button class='but' id="demo02" onclick="changeBodyColor2(2,this.id)">2</button>
+<button class='but' id="demo05" onclick="changeBodyColor2(5,this.id)">5</button>
+<button class='but' id="demo10" onclick="changeBodyColor2(10,this.id)">10</button>
+<button class='but' id="demo20" onclick="changeBodyColor2(20,this.id)">20</button>
+<button class='but' id="demo30" onclick="changeBodyColor2(30,this.id)">30</button>
+<button class='but' id="demo40" onclick="changeBodyColor2(40,this.id)">40</button>
+<button class='but' id="demo50" onclick="changeBodyColor2(50,this.id)">50</button>
+<button class='but' id="demo60" onclick="changeBodyColor2(60,this.id)">60</button>
+<button class='but' id="demo70" onclick="changeBodyColor2(70,this.id)">70</button>
+<button class='but' id="demo80" onclick="changeBodyColor2(80,this.id)">80</button>
+<button class='but' id="demo90" onclick="changeBodyColor2(90,this.id)">90</button>
+<button class='but' id="demo95" onclick="changeBodyColor2(95,this.id)">95</button>
+<button class='but' id="demo97" onclick="changeBodyColor2(97,this.id)">97</button>
+<button class='but' id="demo99" onclick="changeBodyColor2(100,this.id)">100</button>
+
+<div class='osd' id="osd">
+  999
+</div>
+
+<script>
+
+var bodyColor = 0;
+
+var charfield = document.getElementById("body");
+//charfield.addEventListener('keydown', function (e) { alert(e.keyCode); }, false);
+
+charfield.onkeypress = function(e) {
+ // alert(e);
+    e = e || window.event;
+    //var n  = (100.0*bodyColor/255.0)
+    //console.log(e.type + " " + e.which + " " + bodyColor+ " " + n)
+
+
+    if(e.type != "keypress") return;
+    
+    var charCode = (typeof e.which == "number") ? e.which : e.keyCode;
+
+    var s = String.fromCharCode(charCode)
+
+    if(s=='=') {
+      bodyColor = bodyColor + 1;
+    }
+
+    if(s=='+') {
+      bodyColor = bodyColor + 10;
+    }
+
+
+    if(s=='-') {
+      bodyColor = bodyColor - 1;
+    }    
+
+    if(s=='_') {
+      bodyColor = bodyColor - 10;
+    }    
+
+
+    if(bodyColor < 0) bodyColor = 0;
+    if(bodyColor > 255) bodyColor = 255;
+    changeBodyColor2(100.0*bodyColor/255.0 ,"demo00")
+
+};
+
+
+</script>
+</body>
+</html>
+
