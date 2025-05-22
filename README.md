@@ -5,3 +5,6 @@ Useful and re-usable small code snippets for R
 
 
 
+
+[check-power.sh](https://adimitromanolakis.github.io/R-useful-snippets/linux/check-power.sh)
+
