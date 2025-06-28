@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Gradual Background Lightening</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      background-color: rgb(0, 0, 0);
+    }
+  </style>
+</head>
+<body>
+  <script>
+    let value = 0;
+    const interval = 6000; // 8 seconds
+
+    function updateBackground() {
+      if (value <= 245) { // 245 to prevent going above 255 after adding 10
+        value += 10;
+        document.body.style.backgroundColor = `rgb(${value}, ${value}, ${value})`;
+      }
+    }
+
+    setInterval(updateBackground, interval);
+  </script>
+</body>
+</html>
