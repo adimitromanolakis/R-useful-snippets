@@ -6,21 +6,22 @@
   <style>
     body {
       margin: 0;
-      height: 100vh;
+      xeight: 100vh;
       background-color: rgb(0, 0, 0);
     }
   </style>
 </head>
 <body>
-  <div id='a'></div>
+  <h4 id='a' style="color:#888;">hello</h4>
   <script>
     let value = 0;
-    const interval = 600; // 8 seconds
+    const interval = 6000; // 8 seconds
 
     function updateBackground() {
       { // 245 to prevent going above 255 after adding 10
         value += 3;
         document.body.style.backgroundColor = `rgb(${value}, ${value}, ${value})`;
+        document.getElementById('a').innerHTML = value;
 
         if (value > 255)  {
                   document.body.style.backgroundColor = `rgb(0,0,0)`;
