@@ -13,9 +13,11 @@
 </head>
 <body>
   <h4 id='a' style="color:#888;">hello</h4>
+  <button id='b1' style='font-size:50px;'>Press</button>
   <script>
     var state = 0;
     let value = 0;
+    var n = 0;
     const interval = 6000; // 8 seconds
 
     function updateBackground() {
@@ -28,20 +30,27 @@
         }
 
 
-        document.body.style.backgroundColor = `rgb(${value}, ${value}, ${value})`;
-        document.getElementById('a').innerHTML = value;
-
         if (value > 255)  {
-                  document.body.style.backgroundColor = `rgb(0,0,0)`;
-
+            document.body.style.backgroundColor = `rgb(0,0,0)`;
+            return;
         }
 
-        value += 3;        
-          
+        document.body.style.backgroundColor = `rgb(${value}, ${value}, ${value})`;
+        document.getElementById('a').innerHTML = value;
+        console.log(n + " " + value)
+
+        value += 3;
+        n = n + 1;      
       }
     }
 
-    setInterval(updateBackground, interval);
+    //setInterval(updateBackground, interval);
+
+    document.getElementById('b1').addEventListener('click', function () {
+      this.style.display = 'none'; // Hide the button
+      intervalID = setInterval(updateBackground, interval); // Start timer
+    });    
+
   </script>
 </body>
 </html>
