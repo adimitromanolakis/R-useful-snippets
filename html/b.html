@@ -7,18 +7,26 @@
     body {
       margin: 0;
       xeight: 100vh;
-      background-color: rgb(120, 120, 120);
+      background-color: rgb(0, 0, 0);
     }
   </style>
 </head>
 <body>
   <h4 id='a' style="color:#888;">hello</h4>
   <script>
+    var state = 0;
     let value = 0;
     const interval = 6000; // 8 seconds
 
     function updateBackground() {
       { // 245 to prevent going above 255 after adding 10
+
+        if (state == 0) {
+          document.body.style.backgroundColor = `rgb(150,150,150)`;
+          state = 1;
+          return;
+        }
+
 
         document.body.style.backgroundColor = `rgb(${value}, ${value}, ${value})`;
         document.getElementById('a').innerHTML = value;
